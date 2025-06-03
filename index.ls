@@ -23,6 +23,13 @@ getToday = ->
 ga 'create', 'UA-33884963-2', 'auto'
 ga 'send', 'pageview'
 # GA end
+
+# Function to detect mobile devices
+isMobileDevice = ->
+  userAgent = navigator.userAgent or navigator.vendor or window.opera
+  # More comprehensive regex for mobile detection
+  return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test userAgent
+
 [w,h] = [1170,658]
 [patw,path] = [193,278]
 [of1x,of1y] = [298,273]
@@ -34,6 +41,21 @@ angular.module \ERGame, <[]>
     )
 
   ..controller \ERGame, <[$scope $interval $timeout $http $sce]> ++ ($scope, $interval, $timeout, $http, $sce) ->
+    $scope.isTrulyMobileBlocked = false # Initialize the flag
+
+    # Mobile device check - should be the very first thing
+    if isMobileDevice!
+      $scope.isTrulyMobileBlocked = true # Set the flag
+      # Show the mobile blocker overlay
+      # Need to ensure jQuery is loaded and DOM is ready, but this controller likely runs after DOM ready.
+      # Using $() which is jQuery, assuming it's globally available.
+      if window.$
+        window.$('#mobile-blocker').css('display', 'flex')
+        window.$('#container').hide!  # Hide the main game container
+        window.$('#deg90').hide!      # Explicitly hide the rotate device image
+      # Prevent further initialization of the game
+      return
+
     $scope.list = [[(i % 4), parseInt(i / 4)] for i from 0 til 12]
     $scope.danger = false
     $scope.pixel = do
@@ -745,6 +767,9 @@ angular.module \ERGame, <[]>
 
     $scope.dimension = do
       update: ->
+        # If mobile is blocked, do not run any dimension update logic
+        if $scope.isTrulyMobileBlocked => return
+
         [doc-w, doc-h] = [$(window)width!, $(window)height!]
         [cvs-w, cvs-h] = [1024,576]
         [w1,h1] = if doc-w < 1024 => [doc-w, doc-w * 576 / 1024 ] else [1024,576]
