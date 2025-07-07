@@ -326,6 +326,44 @@
                 class="score-digit"
               ></div>
             </div>
+            <div
+              id="completion-code-display"
+              style="
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px 20px;
+                background-color: rgba(255, 255, 255, 0.85);
+                border-radius: 10px;
+                border: 1px solid #ccc;
+                text-align: center;
+                z-index: 10;
+              "
+            >
+              <p
+                style="
+                  font-size: 20px;
+                  color: #333;
+                  margin-bottom: 8px;
+                  font-weight: 600;
+                "
+              >
+                遊戲完成代碼：
+              </p>
+              <p
+                style="
+                  font-size: 32px;
+                  color: #d9534f;
+                  font-weight: bold;
+                  letter-spacing: 1.5px;
+                  margin-bottom: 0;
+                  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+                "
+              >
+                ABC123
+              </p>
+            </div>
           </div>
           <div
             id="danger"
@@ -575,6 +613,23 @@
           "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=646775858745770&version=v2.0";
         fjs.parentNode.insertBefore(js, fjs);
       })(document, "script", "facebook-jssdk");
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "o" || event.key === "O") {
+          // console.log('O key pressed, attempting to go to game over screen.'); // For debugging
+          const scope = angular.element(document.body).scope();
+          if (scope && scope.game) {
+            // Ensure scope and game object exist
+            scope.$apply(function () {
+              scope.game.state = 4;
+            });
+          } else {
+            console.error(
+              "Angular scope or game object not found. Cannot trigger game over."
+            );
+          }
+        }
+      });
     </script>
   </body>
 </html>

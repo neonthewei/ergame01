@@ -42,41 +42,41 @@ angular.module \ERGame, <[]>
       sprite: do
         size: [
           * w:   0, h:   0 #  0 reserved
-          * w: 101, h: 142 #  1 候診病人
-          * w: 108, h: 229 #  2 留觀病人(朝左)
-          * w: 108, h: 229 #  3 留觀病人(朝右)
+          * w: 124, h: 173 #  1 候診病人
+          * w: 131, h: 277 #  2 留觀病人(朝左)
+          * w: 131, h: 277 #  3 留觀病人(朝右)
           * w: 291, h: 245 #  4 病床病人
-          * w: 316, h: 269 #  5 料理台
+          * w: 324, h: 275 #  5 料理台
           * w: 105, h: 196 #  6 飲水機
-          * w: 146, h: 239 #  7 廁所
+          * w: 152, h: 245 #  7 廁所
           * w:  98, h:  60 #  8 香蕉, deprecated but keep for proper order
           * w: 306, h: 298 #  9 醫生台
           * w: 191, h: 240 # 10 隔簾
-          * w: 104, h: 136 # 11 左窗
+          * w: 0, h: 0 # 11 左窗
           * w: 238, h: 184 # 12 右窗
           #* w: 358, h: 451 # 10 隔簾
         ]
         points:
-          [{x: 591, y: -19, type: 6}] ++
-          [{x: 317, y: 2, type: 5}] ++
-          [{x: 687, y: -36, type: 7}] ++
-          [{x: 507, y: 54, type: 9, variant: 1}] ++
+          [{x: 603, y: -13, type: 6}] ++
+          [{x: 329, y: -3, type: 5}] ++
+          [{x: 715, y: -38, type: 7}] ++
+          [{x: 522, y: 65, type: 9, variant: 1}] ++
           [{x: 249, y: 184, type: 11}] ++
           [{
-            x: 293 + c * 59 + r * -127, y: 222 + c * 20 + r * 47, 
+            x: 284 + c * 59 + r * -127, y: 209 + c * 20 + r * 47, 
             type: 1, variant: 0, active: 1
           } for r from 0 til 3 for c from 0 til 4] ++ 
           [
-            * x: 857, y: 100, type: 4, variant: 0, active: 1
+            * x: 878, y: 120, type: 4, variant: 0, active: 1
           ] ++
           [{x: 870, y: 272, type: 12}] ++
-          [{x: 749 + i * 66, y: 227 + i * 24, type: 2, variant: 0, active: 1} for i from 0 til 5] ++
+          [{x: 747 + i * 66, y: 224 + i * 24, type: 2, variant: 0, active: 1} for i from 0 til 5] ++
           [
-            * x: 623, y: 279, type: 3, variant: 0, active: 1
-            * x: 520, y: 341, type: 10
-            * x: 730, y: 387, type: 4, variant: 0, active: 1
-            * x: 335, y: 387, type: 4, variant: 0, active: 1
-            * x: 493, y: 418, type: 3, variant: 0, active: 1
+            * x: 633, y: 279, type: 3, variant: 0, active: 1
+            * x: 565, y: 300, type: 10
+            * x: 758, y: 410, type: 4, variant: 0, active: 1
+            * x: 350, y: 410, type: 4, variant: 0, active: 1
+            * x: 513, y: 425, type: 3, variant: 0, active: 1
             * x: 678, y: 418, type: 2, variant: 0, active: 1
           ]
 
