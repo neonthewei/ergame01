@@ -117,6 +117,10 @@ angular.module \ERGame, <[]>
           $scope.doctor.rank = r
           $scope.share.update-rank!
         ), 500
+        $timeout (->
+          url = 'https://zh.surveymonkey.com/r/LZSJFYP' + window.location.search
+          window.location.href = url
+        ), 5000
       set-state: -> 
         @state = it
       tutorial: ->
