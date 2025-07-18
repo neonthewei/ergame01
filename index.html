@@ -195,38 +195,6 @@
             />
           </div>
           <div id="pause" ng-show="game.state==1">
-            <input
-              id="copy-input"
-              type="text"
-              value="http://0media.tw/p/ergame/"
-            />
-            <div
-              id="pause-link"
-              onclick="ctrl.copy(false,event)"
-              ontouchstart="ctrl.copy(true,event)"
-              data-clipboard-target="#copy-input"
-            >
-              <img data-src="img/pause/link-0.png" class="src" /><img
-                data-src="img/pause/link-1.png"
-                class="src active"
-              />
-            </div>
-            <a
-              id="pause-reporter"
-              ng-click="audio.click()"
-              href="report.html"
-              target="_blank"
-              ><img data-src="img/pause/reporter-0.png" class="src" /><img
-                data-src="img/pause/reporter-1.png"
-                class="src active" /></a
-            ><a
-              id="pause-facebook"
-              ng-href="https://www.facebook.com/dialog/feed?{{share.game}}"
-              target="_blank"
-              ><img data-src="img/pause/fb-0.png" class="src" /><img
-                data-src="img/pause/fb-1.png"
-                class="src active"
-            /></a>
             <div id="pause-tutorial">
               <img data-src="img/pause/tutorial-0.png" class="src" /><img
                 data-src="img/pause/tutorial-1.png"
@@ -286,15 +254,7 @@
             ng-show="game.state==4"
             class="img-bk"
           >
-            <!--a#gover-facebook(ng-href="https://www.facebook.com/dialog/feed?{{share.rank}}",target="_blank")--><!--  img.src(data-src="img/cover/over-share-0.png")--><!--  img.src.active(data-src="img/cover/over-share-1.png")--><a
-              id="gover-reporter"
-              ng-click="audio.click()"
-              href="report.html"
-              target="_blank"
-              ><img data-src="img/cover/over-report-0.png" class="src" /><img
-                data-src="img/cover/over-report-1.png"
-                class="src active"
-            /></a>
+            <!--a#gover-facebook(ng-href="https://www.facebook.com/dialog/feed?{{share.rank}}",target="_blank")--><!--  img.src(data-src="img/cover/over-share-0.png")--><!--  img.src.active(data-src="img/cover/over-share-1.png")-->
             <div id="gover-rank">
               <img id="govevr-rank-bas" data-src="img/lv/0.png" class="src" />
               <div
@@ -326,6 +286,7 @@
                 class="score-digit"
               ></div>
             </div>
+
           </div>
           <div
             id="danger"
@@ -530,6 +491,31 @@
           </div>
         </div>
       </div>
+      <!-- 參數顯示區域 -->
+      <div id="params-display" style="
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        max-width: 300px;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        border-radius: 5px;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        z-index: 1000;
+        word-wrap: break-word;
+      " ng-show="params.data && Object.keys(params.data).length > 0">
+        <h4 style="margin: 0 0 8px 0; font-size: 14px; color: #ffeb3b;">URL 參數</h4>
+        <div ng-repeat="(key, value) in params.data" style="margin-bottom: 3px;">
+          <strong style="color: #4caf50;">{{key}}:</strong> 
+          <span style="color: #e0e0e0;">{{value}}</span>
+        </div>
+        <div ng-show="Object.keys(params.data).length === 0" style="color: #999;">
+          無參數
+        </div>
+      </div>
+
       <div id="foot">
         <a class="pull-left"><img src="img/about.png" /></a
         ><a class="pull-right"><img src="img/github.png" /></a>

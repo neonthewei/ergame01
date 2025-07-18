@@ -117,10 +117,6 @@ angular.module \ERGame, <[]>
           $scope.doctor.rank = r
           $scope.share.update-rank!
         ), 500
-        $timeout (->
-          url = 'https://zh.surveymonkey.com/r/LZSJFYP' + window.location.search
-          window.location.href = url
-        ), 5000
       set-state: -> 
         @state = it
       tutorial: ->
@@ -830,6 +826,57 @@ angular.module \ERGame, <[]>
         if !@handler => @transition!
     $scope.$watch 'progress.count', (-> $scope.progress.update!), true
     $scope.$watch 'progress.size', (-> $scope.progress.update!), true
+
+    # 讀取 localStorage 中的參數功能
+    $scope.params = do
+      data: {}
+      load: ->
+        try
+          stored = localStorage.getItem 'survey_url_params'
+          @data = if stored then JSON.parse(stored) else {}
+          console.log '已載入參數:', @data
+          # 顯示參數資訊到控制台
+          if Object.keys(@data).length > 0
+            console.log '參數詳情:'
+            for key, value of @data
+              console.log "  #{key}: #{value}"
+          else
+            console.log '無儲存的參數'
+        catch error
+          console.error '讀取參數錯誤:', error
+          @data = {}
+      get: (key, default-value = '') ->
+        @data[key] or default-value
+      display: ->
+        # 返回格式化的參數字符串用於顯示
+        items = []
+        for key, value of @data
+          items.push "#{key}: #{value}"
+        if items.length > 0 then items.join(', ') else '無參數'
+      # 測試功能：設置範例參數
+      setTestParams: ->
+        test-params = do
+          id: 'user123'
+          source: 'facebook'
+          campaign: 'emergency_game_2024'
+          timestamp: new Date!.getTime!.toString!
+        localStorage.setItem 'survey_url_params', JSON.stringify(test-params)
+        @load!
+        console.log '已設置測試參數'
+      # 清除參數
+      clear: ->
+        localStorage.removeItem 'survey_url_params'
+        @data = {}
+        console.log '已清除所有參數'
+
+    # 使 Object.keys 在模板中可用
+    $scope.Object = Object
+
+    # 初始化參數載入
+    $scope.params.load!
+
+    # 將參數函數暴露到全局，方便調試
+    window.gameParams = $scope.params
 
     $scope.debug = d1: 0, d2: 0
     interval = do

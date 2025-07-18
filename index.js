@@ -237,7 +237,7 @@
         try {
           ga('send', 'event', 'ergame03', getToday(), 'e' + (new Date).getTime().toString(), $scope.doctor.score.value);
         } catch (e$) {}
-        $timeout(function(){
+        return $timeout(function(){
           var r;
           r = parseInt($scope.doctor.score.value / 10);
           if (r >= 6) {
@@ -249,11 +249,6 @@
           $scope.doctor.rank = r;
           return $scope.share.updateRank();
         }, 500);
-        return $timeout(function(){
-          var url;
-          url = 'https://zh.surveymonkey.com/r/LZSJFYP' + window.location.search;
-          return window.location.href = url;
-        }, 5000);
       },
       setState: function(it){
         return this.state = it;
@@ -1652,6 +1647,70 @@
     $scope.$watch('progress.size', function(){
       return $scope.progress.update();
     }, true);
+    $scope.params = {
+      data: {},
+      load: function(){
+        var stored, key, ref$, value, error, results$ = [];
+        try {
+          stored = localStorage.getItem('survey_url_params');
+          this.data = stored
+            ? JSON.parse(stored)
+            : {};
+          console.log('已載入參數:', this.data);
+          if (Object.keys(this.data).length > 0) {
+            console.log('參數詳情:');
+            for (key in ref$ = this.data) {
+              value = ref$[key];
+              results$.push(console.log("  " + key + ": " + value));
+            }
+            return results$;
+          } else {
+            return console.log('無儲存的參數');
+          }
+        } catch (e$) {
+          error = e$;
+          console.error('讀取參數錯誤:', error);
+          return this.data = {};
+        }
+      },
+      get: function(key, defaultValue){
+        defaultValue == null && (defaultValue = '');
+        return this.data[key] || defaultValue;
+      },
+      display: function(){
+        var items, key, ref$, value;
+        items = [];
+        for (key in ref$ = this.data) {
+          value = ref$[key];
+          items.push(key + ": " + value);
+        }
+        if (items.length > 0) {
+          return items.join(', ');
+        } else {
+          return '無參數';
+        }
+      },
+      setTestParams: function(){
+        var testParams;
+        testParams = {
+          id: 'user123',
+          source: 'facebook',
+          campaign: 'emergency_game_2024',
+          timestamp: new Date().getTime().toString()
+        };
+        localStorage.setItem('survey_url_params', JSON.stringify(testParams));
+        this.load();
+        return console.log('已設置測試參數');
+      },
+      clear: function(){
+        localStorage.removeItem('survey_url_params');
+        this.data = {};
+        return console.log('已清除所有參數');
+      }
+    };
+    $scope.Object = Object;
+    $scope.params.load();
+    window.gameParams = $scope.params;
     $scope.debug = {
       d1: 0,
       d2: 0
