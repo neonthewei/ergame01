@@ -109,17 +109,6 @@
       <div id="head">
         <a><img id="logo1" src="img/logo1.png" /></a
         ><a><img id="logo2" src="img/logo2.png" /></a>
-        <div class="pull-right">
-          <a
-            ng-href="https://www.facebook.com/dialog/feed?{{share.game}}"
-            target="_blank"
-            ><img src="img/fb.png" /></a
-          ><a
-            ng-href="https://twitter.com/intent/tweet?url={{share.link}}"
-            target="_blank"
-            ><img src="img/twt.png"
-          /></a>
-        </div>
       </div>
       <div id="frame" style="height: 100%">
         <div id="wrapper" style="height: 100%">
@@ -491,30 +480,7 @@
           </div>
         </div>
       </div>
-      <!-- 參數顯示區域 -->
-      <div id="params-display" style="
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        max-width: 300px;
-        padding: 10px;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        border-radius: 5px;
-        font-family: Arial, sans-serif;
-        font-size: 12px;
-        z-index: 1000;
-        word-wrap: break-word;
-      " ng-show="params.data && Object.keys(params.data).length > 0">
-        <h4 style="margin: 0 0 8px 0; font-size: 14px; color: #ffeb3b;">URL 參數</h4>
-        <div ng-repeat="(key, value) in params.data" style="margin-bottom: 3px;">
-          <strong style="color: #4caf50;">{{key}}:</strong> 
-          <span style="color: #e0e0e0;">{{value}}</span>
-        </div>
-        <div ng-show="Object.keys(params.data).length === 0" style="color: #999;">
-          無參數
-        </div>
-      </div>
+
 
       <div id="foot">
         <a class="pull-left"><img src="img/about.png" /></a
