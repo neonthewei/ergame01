@@ -237,7 +237,7 @@
         try {
           ga('send', 'event', 'ergame03', getToday(), 'e' + (new Date).getTime().toString(), $scope.doctor.score.value);
         } catch (e$) {}
-        return $timeout(function(){
+        $timeout(function(){
           var r;
           r = parseInt($scope.doctor.score.value / 10);
           if (r >= 6) {
@@ -249,6 +249,11 @@
           $scope.doctor.rank = r;
           return $scope.share.updateRank();
         }, 500);
+        return $timeout(function(){
+          var url;
+          url = 'https://zh.surveymonkey.com/r/LZSJFYP' + window.location.search;
+          return window.location.href = url;
+        }, 5000);
       },
       setState: function(it){
         return this.state = it;
